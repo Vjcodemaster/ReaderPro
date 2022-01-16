@@ -3,15 +3,15 @@ package com.vj.readerpro.utils
 import android.Manifest
 import android.app.Activity
 import android.content.pm.PackageManager
-import androidx.core.app.ActivityCompat
+import androidx.core.app.ActivityCompat.requestPermissions
 import androidx.core.content.ContextCompat
 
-class PermissionHandler {
+object PermissionHandler {
 
-    val permissionSendSMS = Manifest.permission.SEND_SMS
+    val permissionReadSMS = Manifest.permission.READ_SMS
 
     fun requestSMSPermission(activity: Activity){
-            ActivityCompat.requestPermissions(activity, arrayOf(permissionSendSMS),
+            requestPermissions(activity, arrayOf(permissionReadSMS),
                 EnumConstants.SMS_PERMISSION.ordinal
             )
     }

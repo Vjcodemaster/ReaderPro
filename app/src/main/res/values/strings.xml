@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Reader Pro</string>
+
+    <string name="provide_sms_permission">Please provide permission to Read SMS to Continue using app…</string>
 </resources>
