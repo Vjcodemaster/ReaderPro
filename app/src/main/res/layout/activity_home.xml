@@ -16,6 +16,13 @@
     android:layout_height="match_parent"
     tools:context=".ui.activities.HomeActivity">
 
+    <include
+        android:id="@+id/include_group_sms_layout"
+        layout="@layout/include_rv_group_sms"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="visible" />
+
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"

@@ -1,5 +1,7 @@
 package com.vj.readerpro.utils
 
 enum class EnumConstants {
-    SMS_PERMISSION
+    SMS_PERMISSION,
+    DATE,
+    TIME
 }

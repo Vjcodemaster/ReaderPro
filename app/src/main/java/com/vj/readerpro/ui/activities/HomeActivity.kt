@@ -7,16 +7,22 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import com.vj.readerpro.R
 import com.vj.readerpro.base.activity.BaseActivity
+import com.vj.readerpro.data.model.TimeFrameData
 import com.vj.readerpro.databinding.ActivityHomeBinding
+import com.vj.readerpro.ui.adapters.GroupSMSAdapter
 import com.vj.readerpro.ui.viewmodels.HomeViewModel
 import com.vj.readerpro.utils.EnumConstants
 import com.vj.readerpro.utils.PermissionHandler
+import kotlinx.android.synthetic.main.include_rv_group_sms.view.*
+import java.util.*
 
 
 class HomeActivity : BaseActivity() {
 
     private lateinit var mHomeActivityBinding: ActivityHomeBinding
     private lateinit var mHomeViewModel: HomeViewModel
+
+    private lateinit var groupSMSAdapter: GroupSMSAdapter
 
     companion object {
         //lateinit var permissionHandler: PermissionHandler
@@ -94,6 +100,41 @@ class HomeActivity : BaseActivity() {
             }
         }
     }*/
+
+    private fun getAllTimeFrame(){
+
+    }
+
+    private fun updateGroupSMSAdapter(){
+        val alTimeFrameData = arrayListOf<TimeFrameData>()
+        val alSupportedTimeFrame = arrayListOf<String>(*resources.getStringArray(R.array.supported_time_frames))
+        //val alTimeFrameData = arrayListOf<TimeFrameData>(*resources.getStringArray(R.array.supported_time_frames))
+        alSupportedTimeFrame.forEachIndexed { index, timeFrame ->
+            alTimeFrameData[index].groupTimeFrame = timeFrame
+            alTimeFrameData[index].index = index
+        }
+
+
+        groupSMSAdapter = GroupSMSAdapter(this::onTimeFrameSelected)
+
+        mHomeActivityBinding.includeGroupSmsLayout.root.let { binding ->
+            binding.rvTimeFrame.adapter = groupSMSAdapter
+            groupSMSAdapter.submitList(alTimeFrameData)
+            //groupSMSAdapter.submitList(timeFrameData.TimeFrame?.sortedBy { it.index?.toInt() })
+        }
+    }
+
+    private fun onTimeFrameSelected(timeFrameData: TimeFrameData) {
+        groupSMSAdapter.currentList.let { list ->
+            list.forEach {
+                it.isSelected = (it.index == timeFrameData.index)
+            }
+        }
+        groupSMSAdapter?.notifyDataSetChanged()
+        /*groupSMSAdapter?.let {
+                save(it, optionData)
+            }*/
+    }
 
     private fun toastNeedPermission() {
         Toast.makeText(
