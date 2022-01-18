@@ -1,5 +1,18 @@
 <resources>
     <string name="app_name">Reader Pro</string>
 
+    <string name="loading">Loading…</string>
+
     <string name="provide_sms_permission">Please provide permission to Read SMS to Continue using app…</string>
+
+    <string-array name="supported_time_frames">
+        <item>Recent(0 hours ago)</item>
+        <item>1 hour ago</item>
+        <item>2 hours ago</item>
+        <item>3 hours ago</item>
+        <item>6 hours ago</item>
+        <item>12 hours ago</item>
+        <item>1 day ago</item>
+        <item>older</item>
+    </string-array>
 </resources>

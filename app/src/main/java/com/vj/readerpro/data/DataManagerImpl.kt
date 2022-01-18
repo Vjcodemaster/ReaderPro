@@ -7,9 +7,8 @@ import javax.inject.Singleton
 
 @Singleton
 class DataManagerImpl
-@Inject constructor(@param:ApplicationContext private val mContext: Context,
-                    mPreferencesHelper: PreferencesHelper)
-    : DataManager(mPreferencesHelper) {
+@Inject constructor(@param:ApplicationContext private val mContext: Context)
+    : DataManager() {
 
     /*fun deleteAllData() {
         deleteAllData()

@@ -1,22 +1,19 @@
 package com.vj.readerpro.ui.activities
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
+import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.ViewModelProvider
 import com.vj.readerpro.R
+import com.vj.readerpro.base.activity.BaseActivity
 import com.vj.readerpro.databinding.ActivityHomeBinding
 import com.vj.readerpro.ui.viewmodels.HomeViewModel
 import com.vj.readerpro.utils.EnumConstants
 import com.vj.readerpro.utils.PermissionHandler
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import android.database.Cursor
-import android.net.Uri
-import kotlinx.coroutines.launch
 
 
-class HomeActivity : AppCompatActivity() {
+class HomeActivity : BaseActivity() {
 
     private lateinit var mHomeActivityBinding: ActivityHomeBinding
     private lateinit var mHomeViewModel: HomeViewModel
@@ -27,7 +24,16 @@ class HomeActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_home)
+        //setContentView(R.layout.activity_home)
+        mHomeActivityBinding = DataBindingUtil.setContentView(
+            this@HomeActivity,
+            R.layout.activity_home
+        )
+        mHomeViewModel = ViewModelProvider(this, vmFactory)[HomeViewModel::class.java]
+        //mHomeViewModel = ViewModelProvider(this).get(HomeViewModel::class.java)
+
+        mHomeActivityBinding.homeVM = mHomeViewModel
+        mHomeActivityBinding.lifecycleOwner = this@HomeActivity
     }
 
     override fun onStart() {
@@ -57,7 +63,7 @@ class HomeActivity : AppCompatActivity() {
                     )
                 ) {
                     //granted = true
-                    fetchSMSData()
+                    mHomeViewModel.fetchSMSData(contentResolver)
                 } else {
                     //granted = false
                     toastNeedPermission()
@@ -67,7 +73,7 @@ class HomeActivity : AppCompatActivity() {
     }
 
 
-    private fun fetchSMSData(){
+    /*private fun fetchSMSData(){
         CoroutineScope(Dispatchers.Default).launch {
             // Create Inbox box URI
             val inboxURI: Uri = Uri.parse("content://sms/inbox")
@@ -87,7 +93,7 @@ class HomeActivity : AppCompatActivity() {
                 alSMSList.add(cursor.getString(cursor.getColumnIndex("address")))
             }
         }
-    }
+    }*/
 
     private fun toastNeedPermission() {
         Toast.makeText(
